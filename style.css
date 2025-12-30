@@ -65,10 +65,10 @@ body {
 .logo {
     display: block;
     margin: 0 auto;
-    width: 30%;
+    width: 40%;
     height: auto;
     padding-top: 3vw;
-    max-width: 200px; /* Ensures logo doesn't get too large */
+    max-width: 400px; /* Ensures logo doesn't get too large */
 }
 /* Media query for logo on small devices */
 @media (max-width: 767px) {
@@ -172,5 +172,6 @@ body {
     height: auto;
     display: block;
 }
+
 
 
