@@ -73,7 +73,7 @@ body {
 /* Media query for logo on small devices */
 @media (max-width: 767px) {
     .logo {
-        width: 45%; /* Increase width on small devices */
+        width: 60%; /* Increase width on small devices */
         max-width: none; /* Remove max-width restriction beyond the 200px limit set for larger devices*/
         padding-bottom: 3vw;
         padding-top: 5vw;
@@ -172,6 +172,7 @@ body {
     height: auto;
     display: block;
 }
+
 
 
 
