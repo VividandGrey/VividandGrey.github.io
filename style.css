@@ -1,0 +1,415 @@
+/* --- CSS VARIABLES FOR EASY ADJUSTMENT --- */
+:root {
+    
+    /* Prevents viewport-level scrolling bounce in Firefox and Edge */
+  overscroll-behavior: none;
+
+    /* Colors */
+  --color-black: #000000;
+  --color-grey: #808080;
+  --color-white: #ffffff;
+  
+  /* Outline color for the email input box */
+  --input-outline-color:#ffffff; 
+
+  /* Font Sizes - Adjust these values to change the hierarchy */
+  --size-vivid-grey: 2.2rem;
+  --size-author: 1.1rem;       /* Set as the biggest by default */
+  --size-tagline: 3rem;
+  --size-status: 1.5rem;
+}
+
+/* Base Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #ffffff;
+  display: block; /* Allows natural vertical flow and scrolling */
+  width: 100%; /* Changed from 100vw */
+  min-height: 100vh;
+  overflow-y: auto; /* Enables vertical scrolling only when needed */
+  overflow-x: hidden; /* Prevents horizontal scrolling */
+  overscroll-behavior: none; /* Disables the top and bottom rubber-band bounce effect */
+}
+
+/* Proportional Scrollable Container */
+.landing-container {
+  width: 100%; /* Changed from 100vw */
+  min-height: 100vh;
+  height: auto;
+  aspect-ratio: 16 / 9; /* Maintains the 16:9 scaling based on viewport width */
+  /* Replace URL below with your actual background image */
+  background-image: url('Background.jpg');
+  background-size: cover;
+  background-position: top left; /* Aligns the image to the top-left */
+  position: relative;
+}
+
+/* Content Area - Fixed to the viewport so it does not scroll */
+.content-area {
+  position: fixed; /* Changed from absolute to fixed */
+  top: 0;
+  left: 0;
+  width: 100%; /* Changed from 100vw */
+  height: 100vh; /* Spans the full height of the screen */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 5% 5% 5% 13%;
+  text-align: left;
+  z-index: 10; /* Ensures the text stays on top of the scrolling image */
+  pointer-events: none; /* Allows click events to pass through the empty areas of the overlay */
+}
+
+/* Re-enable pointer events for the text group and form so you can highlight text and click buttons */
+.text-group, .waitlist-form {
+  pointer-events: auto;
+}
+
+/* Text Group Container */
+.text-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px; /* Space between the text lines */
+  margin-bottom: 25px; /* Space between text and form */
+  width: 100%;
+  max-width: 50%; /* Prevents text from stretching across the image */
+}
+
+/* Common Text Properties */
+.text-line {
+  line-height: 1.2;
+}
+
+/* Line 1: VIVIDANDGREY */
+.line-vivid-grey {
+  font-family: 'Hubballi', sans-serif;
+  font-size: var(--size-vivid-grey);
+  color: var(--color-black);
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
+.color-medium-grey {
+  color: var(--color-grey);
+}
+
+/* Line 2: BY ISHITA NAGER */
+.line-author {
+  font-family: 'Hubballi', sans-serif;
+  font-size: var(--size-author);
+  color: var(--color-black);
+  font-weight: 400;
+  text-transform: uppercase;
+  margin-top: -10px; /* Adds negative margin to pull this line closer to the top line */
+}
+
+/* Line 3: 'the light that remembers' */
+.line-tagline {
+  font-family: 'Oranienbaum', serif;
+  font-size: var(--size-tagline);
+  color: var(--color-black);
+  text-transform: lowercase;
+  margin-top: 10px; /* Adds margin to push this line away from the top line */
+}
+
+/* Line 4: FINE ART COLLECTION COMING SOON */
+.line-status {
+  font-family: 'Hubballi', sans-serif;
+  font-size: var(--size-status);
+  color: var(--color-black);
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
+/* Form Styles */
+.waitlist-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+  max-width: 320px;
+}
+
+/* Email Input - No Fill, White Outline */
+.email-input {
+  width: 100%;
+  padding: 12px;
+  background: transparent;
+  border: 2px solid var(--input-outline-color);
+  color: var(--color-black); /* Text matches the black text theme */
+  font-family: 'Hubballi', sans-serif;
+  font-size: 1.1rem;
+  outline: none;
+  margin-top: 10px; /* Adds margin to push this line away from the top line */
+  transition: border-color 0.25s ease; /* Adds a smooth transition when outline color changes */
+}
+
+.email-input:focus {
+  border-color:  #939393; /* Changes the outline to grey when clicked */
+}
+
+.email-input::placeholder {
+  color:--color-grey;
+  font-family: 'Hubballi', sans-serif;
+  transition: color 0.1s ease; /* Allows a quick, clean fade out */
+}
+
+/* Forces the placeholder to vanish instantly when clicked (focused) */
+.email-input:focus::placeholder {
+  color: transparent;
+}
+
+/* Submit Button - Black background, white Hubballi text */
+.submit-button {
+  width: 100%;
+  padding: 12px;
+  background-color: var(--color-black);
+  color: #d5d5d5; /* Default light grey text color */
+  /*color: var(--color-white);*/
+  border: 1px solid var(--color-black);
+  font-family: 'Hubballi', sans-serif;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+  transition: color 0.3s ease; /* Smooth transition for the text color change */
+  margin-top: 3px; /* Adds margin to push this line away from the top line */
+}
+
+.submit-button:hover {
+  opacity: 0.88;
+  color: #ffffff; /* Changes text to fully white on hover */
+}
+
+/* Responsive adjustments for smaller portrait viewports */
+@media (max-width: 1024px) {
+  
+  /* 1. Prevent all scrolling on mobile */
+  body {
+    overflow: hidden; 
+  }
+  
+  .landing-container {
+    width: 100%; /* Changed from 100vw */
+    height: 100dvh; /* Changed from 100vh to fit dynamic menu bars */
+    min-height: 100dvh; /* Changed from 100vh */
+    aspect-ratio: auto; /* Resets desktop 16:9 ratio */
+    overflow: hidden;
+    
+    /* 2. Layer a subtle white gradient directly on top of the background image */
+    background-image: 
+      linear-gradient(to top, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.078) 40%, rgba(255, 255, 255, 0) 80%), 
+      url('Background.jpg');
+    
+    background-size: cover;
+
+    /* 3. HORIZONTAL CROP ADJUSTMENT:
+       - '85% center' shifts the image to show the right side (cropping the left).
+       - Increase this number (e.g., 90%, 95%, or 'right center') to show more of the right.
+       - Decrease this number (e.g., 75%, 60%) to show more of the left. */
+    background-position: 73% center; 
+  }
+  
+  /* 4. Align the content area to the bottom-left of the viewport */
+  .content-area {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%; /* Changed from 100vw */
+    height: 100dvh; /* Changed from 100vh */
+    /* padding: 30px 24px;  Spacing from screen edges */
+    /* Spacing with Safe Area adjustment to prevent overlap with tablet gesture bars */
+    padding: 30px 24px calc(30px + env(safe-area-inset-bottom)) 24px; 
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; /* Pushes content to the bottom */
+    align-items: flex-start;   /* Aligns content to the left */
+    z-index: 10;
+  }
+  
+  /* 5. Compact spacing between text lines and the form */
+  .text-group {
+    max-width: 100%;
+    gap: 8px;
+    margin-bottom: 26px; /* Space between text block and email form */
+  }
+
+  /* 6. Variables specific to tablets */
+  :root {
+    --size-vivid-grey: 1.9rem;
+    --size-author: 1.05rem;
+    --size-tagline: 2.5rem;
+    --size-status: 1.3rem;
+  }
+
+  /* 6. Scaled up form layout for tablet screens */
+  .waitlist-form {
+    max-width: 350px;    /* Increased from 320px */
+    gap: 16px;           /* Increased from 15px */
+  }
+
+  /* 7. Scaled up input box and button sizing */
+  .email-input, .submit-button {
+    font-size: 1.2rem;   /* Increased from 1.1rem */
+    padding: 14px;       /* Increased from 12px */
+  }
+
+  .email-input {
+    margin-top: 10px;
+  }
+
+  .instagram-logo {
+    width: 18px;         /* Increased from 16px */
+  }
+}
+
+/* Strictly for vertical phone screens (9:16 aspect ratio or taller) */
+@media (max-aspect-ratio: 9/16) {
+  
+  /* 1. Force-kill any scrollbar tracks in Firefox and Webkit browsers */
+  html, body, .landing-container, .content-area {
+    scrollbar-width: none; /* Hides scrollbar on Firefox */
+    -ms-overflow-style: none; /* Hides scrollbar on IE/Edge */
+  }
+  
+  html::-webkit-scrollbar, 
+  body::-webkit-scrollbar, 
+  .landing-container::-webkit-scrollbar, 
+  .content-area::-webkit-scrollbar {
+    display: none; /* Hides scrollbar on Chrome, Safari, and Opera */
+  }
+  
+  /* 2. Absolute lock on dimensions and overflow */
+  html, body {
+    height: 100dvh;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden !important; /* Force-kills horizontal scrollbar track */
+    overflow-y: hidden !important; /* Force-kills vertical bounce/scrolling */
+  }
+  
+  :root {
+    --size-vivid-grey: 1.5rem;  /* smaller than tablet */
+    --size-author: 0.85rem; /* smaller than tablet */
+    --size-tagline: 1.95rem; /* smaller than tablet */
+    --size-status: 1rem; /* smaller than tablet */
+  }
+
+  .landing-container {
+    width: 100%;
+    height: 100dvh;
+    min-height: 100dvh;
+    aspect-ratio: auto;
+    overflow: hidden;
+    
+    background-image: 
+      linear-gradient(to top, rgb(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.078) 40%, rgba(255, 255, 255, 0) 80%), 
+      url('Background.jpg');
+    
+    background-size: cover;
+    background-position: 73% center; 
+  }
+  
+  .content-area {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100dvh;
+    padding: 30px 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-start;
+    z-index: 10;
+    transform: none; 
+  }
+  
+  .text-group {
+    max-width: 100%;
+    gap: 4px;
+    margin-bottom: 20px;
+  }
+
+  .waitlist-form {
+    max-width: 270px;
+    gap: 10px;
+  }
+
+  .email-input, .submit-button {
+    font-size: 0.95rem;
+    padding: 10px;
+  }
+  
+  .email-input {
+    margin-top: 5px;
+  }
+  
+  .instagram-logo {
+    width: 14px;
+  }
+}
+
+/* Strictly for Ultra HD / 4K and large displays (2500px width and up) */
+@media (min-width: 2500px) {
+  
+  /* 1. Redefine global variables to 2x scale for 4K density */
+  :root {
+    --size-vivid-grey: 4.4rem;  /* doubled from 2.2rem */
+    --size-author: 2.2rem;      /* doubled from 1.1rem */
+    --size-tagline: 6.0rem;     /* doubled from 3.0rem */
+    --size-status: 3.0rem;      /* doubled from 1.5rem */
+  }
+
+  /* 2. Scale up text-group spacing */
+  .text-group {
+    gap: 24px;                  /* doubled from 12px */
+    margin-bottom: 50px;        /* doubled from 25px */
+  }
+  
+  .line-author {
+    margin-top: -20px;          /* doubled from -10px */
+  }
+  
+  .line-tagline {
+    margin-top: 20px;           /* doubled from 10px */
+  }
+
+  /* 3. Scale up the waitlist form size */
+  .waitlist-form {
+    max-width: 640px;           /* doubled from 320px */
+    gap: 30px;                  /* doubled from 15px */
+  }
+
+  /* 4. Scale up the input box and button sizing */
+  .email-input, .submit-button {
+    font-size: 2.2rem;          /* doubled from 1.1rem */
+    padding: 24px;              /* doubled from 12px */
+  }
+  
+  .email-input {
+    margin-top: 20px;           /* doubled from 10px */
+  }
+
+  /* 5. Scale up the Instagram logo */
+  .instagram-logo {
+    width: 32px;                /* doubled from 16px */
+  }
+}
+
+.instagram-logo {
+  width: 16px; /* Adjust this value to make the logo smaller or larger */
+  height: auto;
+  display: block;
+  opacity: 0.40; /* Sets default opacity to 55% */
+  transition: opacity 0.2s ease;
+}
+
+.instagram-logo:hover {
+  opacity: 1; /* Sets opacity to 100% on hover */
+}
