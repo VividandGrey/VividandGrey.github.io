@@ -41,7 +41,7 @@
       </div>
 
       <!-- Form (aligned directly below the text) -->
-      <form class="waitlist-form" action="https://formspree.io/f/maewlnjq" method="POST">
+      <form id="signup-form" class="waitlist-form" action="https://formspree.io/f/maewlnjq" method="POST">
         <!-- Be sure to replace the value with YOUR actual github thanks.html URL -->
         <!-- <input type="hidden" name="_next" value="https://github.com/VividandGrey/VividandGrey.github.io/blob/main/thanks.html"> -->
         <input
@@ -57,5 +57,15 @@
     </div>
   </main>
 
+<script>
+    // This clears the form whenever the page is loaded or returned to via the Back button
+    window.addEventListener('pageshow', function() {
+        const form = document.getElementById('signup-form');
+        if (form) {
+            form.reset();
+        }
+    });
+</script>
+  
 </body>
 </html>
