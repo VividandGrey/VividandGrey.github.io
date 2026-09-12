@@ -58,10 +58,21 @@
   </main>
 
 <script>
+    const form = document.getElementById('signup-form');
+
+    // 1. Check if the user has already submitted from this browser
+    if (localStorage.getItem('formSubmitted')) {
+        form.innerHTML = '<p style="letter-spacing: 1.5px; font-size: 0.95rem;">YOU ARE ALREADY ON THE LIST. THANK YOU!</p>';
+    } else if (form) {
+        // 2. Mark as submitted when the user sends the form
+        form.addEventListener('submit', function() {
+            localStorage.setItem('formSubmitted', 'true');
+        });
+    }
+
     // This clears the form whenever the page is loaded or returned to via the Back button
     window.addEventListener('pageshow', function() {
-        const form = document.getElementById('signup-form');
-        if (form) {
+        if (form && !localStorage.getItem('formSubmitted')) {
             form.reset();
         }
     });
