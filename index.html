@@ -59,19 +59,12 @@
 
 <script>
     // This clears the form whenever the page is loaded or returned to via the Back button
-   //  window.addEventListener('pageshow', function() {
-      //   if (form && !localStorage.getItem('formSubmitted')) {
-         //    form.reset();
-        // }
-    // });
-  // Clears the input field reliably on initial load and back-button navigation
     window.addEventListener('pageshow', function() {
-        const emailField = document.getElementById('email-field');
-        if (emailField) {
-            emailField.value = '';
+         if (form && !localStorage.getItem('formSubmitted')) {
+             form.reset();
         }
     });
-</script>
+  </script>
   
 </body>
 </html>
