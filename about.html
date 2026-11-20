@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>ABOUT THE ARTIST | VIVIDANDGREY</title>
+
+  <link rel="icon" type="image/png" href="Favicon.png">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Hubballi&family=Oranienbaum&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="about-page">
+
+  <!-- Fixed Background Image Layer -->
+  <div class="about-bg" aria-hidden="true"></div>
+
+  <!-- Frosted Vellum / Scroll-Dim Overlay Layer -->
+  <div class="about-scrim" id="aboutScrim" aria-hidden="true"></div>
+
+  <!-- Scrollable Text Container -->
+  <main class="about-container">
+    <article class="about-content">
+
+      <header class="about-header">
+        <a href="index.html" class="about-back-link">&larr; BACK TO GALLERY</a>
+        <h1 class="about-heading">about the artist</h1>
+        <p class="about-scroll-cue" id="aboutScrollCue">SCROLL</p>
+      </header>
+
+      <div class="about-body">
+        <p>
+          The name Vivid and Grey reflects the personal philosophy of its creator Ishita: that life is both bright and bleak, and both sides deserve to be felt deeply. Her art explores themes of Cosmos, Consciousness, and Clarity. The first and second pertain to the big questions of life, the universe, and everything. The third pertains to transcendental awakening and interconnectedness, especially after a period of grief and confusion.
+        </p>
+
+        <p>
+          Motivated by her quest for Qualia, Ishita likes to depict these themes via a monochrome palette – another nod to the brand name. Painting in black and white oils (and often an indulgent phthalo blue), her work feels mindful and conscious.
+        </p>
+
+        <p>
+          From premium originals for seasoned collectors to accessible pieces for those just starting their home decor journey, there is a 'Vivid and Grey' artwork for every space. If you are looking for a signature piece or a custom commission to complete a vision, let’s start a conversation.
+        </p>
+
+        <p>
+          Collaborations with interior design firms seeking to integrate authentic, bespoke emotive art into their residential or commercial portfolios, are also welcome. Please reach out for trade inquiries at <a href="mailto:hi@vividandgrey.com" class="about-inline-link">hi@vividandgrey.com</a> or via <a href="https://www.instagram.com/art.ishita/" target="_blank" rel="noopener noreferrer" class="about-inline-link">Instagram</a>.
+        </p>
+      </div>
+
+    </article>
+  </main>
+
+  <!-- About Page Scroll Effects (Isolated to about.html) -->
+  <script>
+    const aboutBg = document.querySelector(".about-bg");
+    const aboutScrim = document.getElementById("aboutScrim");
+    const aboutCue = document.getElementById("aboutScrollCue");
+    const aboutContainer = document.querySelector(".about-container");
+
+    // Measure the natural aspect ratio of artist-bg.jpg
+    let bgAspect = 16 / 9;
+    const bgPreload = new Image();
+    bgPreload.src = "artist-bg.jpg";
+    if (bgPreload.complete && bgPreload.naturalWidth && bgPreload.naturalHeight) {
+      bgAspect = bgPreload.naturalWidth / bgPreload.naturalHeight;
+    } else {
+      bgPreload.onload = () => {
+        if (bgPreload.naturalWidth && bgPreload.naturalHeight) {
+          bgAspect = bgPreload.naturalWidth / bgPreload.naturalHeight;
+          updateAboutLayout();
+        }
+      };
+    }
+
+    let bgOverflow = 0;
+
+    function updateAboutLayout() {
+      if (window.innerWidth <= 768) {
+        // Clear desktop inline overrides so mobile behavior stays untouched
+        aboutBg.style.height = "";
+        aboutBg.style.transform = "";
+        aboutContainer.style.minHeight = "";
+        bgOverflow = 0;
+        return;
+      }
+
+      const vw = document.documentElement.clientWidth;
+      const vh = window.innerHeight;
+
+      // Match full image height on wide/normal desktops, or fill vh on taller screens
+      const renderedHeight = Math.max(vh, Math.ceil(vw / bgAspect));
+
+      aboutBg.style.height = `${renderedHeight}px`;
+      aboutContainer.style.minHeight = `${renderedHeight}px`;
+      bgOverflow = Math.max(0, renderedHeight - vh);
+
+      updateAboutScroll();
+    }
+
+    function updateAboutScroll() {
+      const scrolled = window.pageYOffset || document.documentElement.scrollTop;
+
+      if (window.innerWidth <= 768) {
+        // Smoothly brings in the frosted dim over the first 220px of scrolling
+        const progress = Math.min(1, Math.max(0, scrolled / 220));
+        aboutScrim.style.setProperty("--scrim-opacity", progress.toFixed(3));
+
+        // Gently fades out the "SCROLL" hint
+        if (aboutCue) {
+          aboutCue.style.opacity = Math.max(0, 0.55 - scrolled / 90);
+        }
+        return;
+      }
+
+      // Desktop: sync background vertical scroll harmoniously with page scroll
+      const docScrollMax = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+      if (bgOverflow > 0 && docScrollMax > 0) {
+        const progress = Math.min(1, Math.max(0, scrolled / docScrollMax));
+        const translateY = -(progress * bgOverflow);
+        aboutBg.style.transform = `translate3d(0, ${translateY.toFixed(2)}px, 0)`;
+      } else {
+        aboutBg.style.transform = "translate3d(0, 0, 0)";
+      }
+    }
+
+    window.addEventListener("scroll", updateAboutScroll, { passive: true });
+    window.addEventListener("resize", updateAboutLayout);
+    window.addEventListener("load", updateAboutLayout);
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(updateAboutLayout);
+    }
+
+    updateAboutLayout();
+    updateAboutScroll();
+  </script>
+
+</body>
+</html>
